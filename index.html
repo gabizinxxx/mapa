@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Mapa Interativo de Escritoras Negras</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CSS do Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+   
+    #map {
+      height: calc(100vh - 40px); 
+    }
+
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    .foto-escritora {
+      width: 120px;
+      border-radius: 8px;
+      margin-top: 5px;
+    }
+
+    footer {
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      font-weight: bold;
+      background-color: #f1f1f1;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<footer>
+  Desenvolvido por: Sara Viana, Laura Aguilar, Alisson Rocha e Geovana Lopes
+</footer>
+
+<!-- JS do Leaflet -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  // Inicializa o mapa
+  var map = L.map('map').setView([-15.77972, -47.92972], 2);
+
+  // Adiciona o mapa base (OpenStreetMap)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contribuidores'
+  }).addTo(map);
+
+  // Lista de escritoras negras com coordenadas, informações e imagem
+  var escritoras = [
+    {
+      nome: "Conceição Evaristo",
+      pais: "Brasil",
+      coordenadas: [-19.8157, -43.9542],
+      obras: "Ponciá Vicêncio, Becos da Memória",
+      imagem: "https://www.dmtpalestras.com.br/wp-content/uploads/2021/10/conceica-evaristo-palestrante-dmtpalestras.jpg"
+    },
+    {
+      nome: "Chimamanda Ngozi Adichie",
+      pais: "Nigéria",
+      coordenadas: [6.5244, 3.3792],
+      obras: "Americanah, Hibisco Roxo",
+      imagem: "https://www.amperj.org/wp-content/uploads/2025/03/IMG-SITE-2025-03-07T102630.792.jpg"
+    },
+    {
+      nome: "Carolina Maria de Jesus",
+      pais: "Brasil",
+      coordenadas: [-23.5505, -46.6333],
+      obras: "Quarto de Despejo",
+      imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_wNG-nDHrcZppjZKdyyBN14hPP3QpKI2SnA&s"
+    },
+    {
+      nome: "Maya Angelou",
+      pais: "EUA",
+      coordenadas: [35.2271, -80.8431],
+      obras: "I Know Why the Caged Bird Sings",
+      imagem: "https://hips.hearstapps.com/hmg-prod/images/maya_angelou_photo_by_deborah_feingold_corbis_entertainment_getty_533084708.jpg?crop=1.00xw:1.00xh;0,0&resize=1200:*"
+    },
+    {
+      nome: "Djaimilia Pereira de Almeida",
+      pais: "Angola/Portugal",
+      coordenadas: [38.7169, -9.1399],
+      obras: "Esse Cabelo, Luanda, Lisboa, Paraíso",
+      imagem: "https://images.trustinnews.pt/uploads/sites/5/2020/09/JCC-Djaimilia-Pereira-de-Almeida-11A-1600x1067.jpg"
+    }
+  ];
+
+  // Adiciona marcadores ao mapa
+  escritoras.forEach(function(escritora) {
+    L.marker(escritora.coordenadas)
+      .addTo(map)
+      .bindPopup(
+        `<strong>${escritora.nome}</strong><br>` +
+        `País: ${escritora.pais}<br>` +
+        `Obras: ${escritora.obras}<br>` +
+        (escritora.imagem ? `<img src="${escritora.imagem}" class="foto-escritora">` : "")
+      );
+  });
+</script>
+
+</body>
+</html>
